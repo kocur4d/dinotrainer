@@ -9,6 +9,7 @@ class Dino:
     def __init__(self):
         self.type = 'dino'
 
+    def setup(self):
         # ---Setup brain as a NN
         model = Sequential()
         model.add(Dense(32, input_dim=810, activation='relu'))

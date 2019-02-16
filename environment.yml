@@ -1,5 +1,0 @@
-name: dinotrainer
-dependencies:
-  - numpy
-  - pandas
-  - selenium

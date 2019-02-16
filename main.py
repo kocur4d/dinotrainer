@@ -1,8 +1,8 @@
 from pathos.multiprocessing import ProcessingPool as Pool
 
-import agent
+from agent import Agent
 
-NUMBER_OF_AGENTS = 2
+NUMBER_OF_AGENTS = 1
 GENERATIONS = 1
 
 class Simulation:
@@ -17,18 +17,21 @@ class Simulation:
 
     def run(self):
         current_gen = 1
-        results = []
         print('Starting generation: ', current_gen, ' ...')
+        print('Population: ', self.population, '...')
         while current_gen <= self.n_gen:
           pool = Pool(processes = self.n_agents)
-          results = pool.map(lambda agent: agents.start(), self.population)
+          results = pool.map(lambda agent: agent.start(), self.population)
+          print('Generation: ', current_gen, ' finished.')
+          self.winners.append(max(results, key=lambda agent: agent['score']))
+          current_gen = current_gen + 1
 
-        self.winners = self.winners.append(max(results, key=lambda agent: agent.score()))
 
 
 if __name__ == "__main__":
   print('START')
   sim = Simulation(NUMBER_OF_AGENTS, GENERATIONS)
   sim.setup()
-  print('results', results)
+  sim.run()
+  print('winners', sim.winners)
   print('FINISH')
